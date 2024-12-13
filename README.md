@@ -10,28 +10,29 @@
     <img src="images/municipio.svg" alt="Logo" width="300">
   </a>
 </p>
-<h3>Municipio 3 (Standard) - Deployment</h3>
+<h3>Municipio 4 (Standard) - Deployment</h3>
 <p>
-  Simplified deployment of Municipio 3
+  Simplified deployment of Municipio 4
   <br />
   <a href="https://github.com/municipio-se/municipio-deployment/issues">Report Bug</a>
   ·
   <a href="https://github.com/municipio-se/municipio-deployment/issues">Request Feature</a>
 </p>
 
-## About Municipio 3 (Standard) - Deployment
+## About Municipio 4 (Standard) - Deployment
 This repository simplifies the deployment for users of Municpio. Simply fork this repository and setup deployment details for your hosting environment and deploy whenever it suits you. 
 
-This will enshure that deployments can be made by fetching the upstream of the forked repository without any technical knowledge. Guide on hot to fetch a upstream repo with github user interface can be found here: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork.
+This will ensure that deployments can be made by fetching the upstream of the forked repository without any technical knowledge. Guide on how to fetch a upstream repo with github user interface can be found here: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork.
 
 ## Changelog
 | Date       | Version | Release Notes                                                |
 |------------|---------|-------------------------------------------------------------|
+| 2024-02-29 | 4.0.0   | [Release Notes](https://github.com/example/repository/releases/tag/4.0.0) |
 | 2023-06-14 | 3.2.0   | [Release Notes](https://github.com/example/repository/releases/tag/3.2.0) |
 
 ## Quick start
 1. Fork this repository. Enable github workflows on your newly created repository (gihub disables them due to security reasons on forks).
-2. Setup deployment details according to the tables below (source:  https://github.com/helsingborg-stad/municipio-deploy/tree/master/3.0).
+2. Setup deployment details according to the tables below (source:  https://github.com/helsingborg-stad/municipio-deploy/tree/master/4.0).
 3. Update to upstream, whenever you want to update your production enviroment with the latest version of Municipio.
 
 ## Adding custom dependencies
@@ -53,6 +54,7 @@ Used for branch names: production, master
 | DEPLOY_REMOTE_USER_PROD         | Host deploy ssh user name (In sudoers with nopassword enabled)               | true     |
 | DEPLOY_KEY_PROD                 | Host deploy ssh user key (Private part of ssh key)                           | true     |
 | WEB_SERVER_USER_PROD            | Host web server user                                                         | true     |
+| PHP_VERSION                     | What version of PHP that should be used (target env, build)                  | true     |
 | GITHUB_TOKEN                    | Github token for github npm package usage, use built in secrets.GITHUB_TOKEN | true     |
 | ACF URL                         | A url where a zip-file with ACF PRO can be found (ACF provides a url).       | true     |
 
@@ -67,6 +69,7 @@ Used for branch names: stage, beta, test
 | DEPLOY_REMOTE_USER_STAGE        | Host deploy ssh user name (In sudoers with nopassword enabled)               | true     |
 | DEPLOY_KEY_STAGE                | Host deploy ssh user key (Private part of ssh key)                           | true     |
 | WEB_SERVER_USER_STAGE           | Host web server user                                                         | true     |
+| PHP_VERSION                     | What version of PHP that should be used (target env, build)                  | true     |
 | GITHUB_TOKEN                    | Github token for github npm package usage, use built in secrets.GITHUB_TOKEN | true     |
 | ACF URL                         | A url where a zip-file with ACF PRO can be found (ACF provides a url).       | true     |
 
@@ -83,10 +86,24 @@ You may contribute to this repository if you feel that anything is missing. Simp
 ## Suggested target environment
 We do suggest that you include the following softare on the target machine.
 
-- NGINX / Litespeed / Apache
-- PHP 7.4 (PHP 8 support planned 2023)
-- Redis
+- Litespeed (prefered option) / NGINX / Apache
+- PHP ^8.1
 - Rsync (required for deployment)
+- MySQL or MariaDB
+
+### Optional addons
+Municipio runs better with these additional packages, applications and settings. 
+
+- Redis (highly encouraged)
+- Imagic (highly encouraged)
+- OpCache (highly encouraged)
+- S3 Compatible Object storage (Tested with Swift)
+
+### Resources
+What resources you should give the machine is highly individual depending on your anticipated amount of traffic. But let each PHP process have at least 512MB memory to allocate. This high amount is due to some image processing being made in runtime. 
+
+### Known issues
+- Municipio platform do not perform well in highly virtualized platforms sutch as Virtouzzo or Docker containers due to lack in efficiency of disk access. 
 
 ## License
 Distributed under the [MIT License][license-url].
